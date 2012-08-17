@@ -1,0 +1,25 @@
+{
+  "name": "naverscraper",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gist.github.com:3185663.git"
+  },
+  "dependencies": {
+    "request": "latest",
+    "step": "latest",
+    "jsdom": "~0.2.15",
+    "mkdirp": "latest",
+    "redis": "latest",
+    "express": "latest",
+    "jstoxml": "latest",
+    "fluent-ffmpeg": "~1.1.7",
+    "temp": "~0.4.0"
+  },
+  "author": "blmarket",
+  "license": "BSD"
+}
