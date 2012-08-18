@@ -4,7 +4,8 @@ var models = require('./lib/models');
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
-var app = express.createServer();
+
+var app = express();
 
 app.use(express.methodOverride());
 app.use(express.bodyParser());
@@ -16,47 +17,6 @@ app.get('/rss', function(req, res, next) {
     console.log(result);
     res.header('Content-Type', 'application/rss+xml');
     res.end(result);
-  });
-});
-
-app.get('/add/youtube', function(req, res, next) {
-  res.render('add_youtube');
-});
-
-app.post('/add/youtube', function(req, res, next) {
-  if(!req.body) return next(404);
-  var id = req.body.id;
-  if(!id) return next(404);
-
-  var key = "youtube:" + id;
-  fetch(key, function(err, filename) {
-    res.send('done');
-  });
-});
-
-app.post('/add', function(req, res, next) {
-  if(!req.body) return next(404);
-  var id = req.body.id;
-  var category = req.body.category;
-
-  if(!id || !category) return next(404);
-
-  var key = "naver:" + category + ":" + id;
-  var date = new Date();
-  var title = req.body.title || "No Title";
-  var description = req.body.description || "No Description";
-
-  fetch(key, function(err, filename) {
-    if(err) return next(err);
-    models.addtorss({
-      key: key,
-      date: date,
-      title: title,
-      desc: description
-    }, function(err, value) {
-      if(err) return next(err);
-      res.end('done');
-    });
   });
 });
 
@@ -74,8 +34,4 @@ app.get('/get/:key', function(req, res, next) {
 
 app.listen(3279);
 console.log("Listening 3279");
-
-//
-// client.lpush('rss', 'kbo:28179');
-//process.exit(0); // explicit exit due to redis client
 
